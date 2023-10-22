@@ -1,4 +1,4 @@
-"""Parser for tedanaprep."""
+"""Parser for fmripost_tedana."""
 
 
 def _build_parser():

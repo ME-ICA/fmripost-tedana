@@ -1,4 +1,4 @@
-# tedanaprep
+# fMRIPost-tedana
 
 A BIDS App for the tedana workflow
 
