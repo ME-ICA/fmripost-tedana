@@ -1,4 +1,4 @@
-# tedana-bids-app
+# tedanaprep
 
 A BIDS App for the tedana workflow
 

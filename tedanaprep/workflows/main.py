@@ -1,4 +1,5 @@
 """Base workflows for the tedana BIDS App."""
+from niworkflows.engine.workflows import LiterateWorkflow as Workflow
 
 
 def init_tedana_wf():
@@ -24,4 +25,8 @@ def init_denoise_run_wf():
     5.  Reorganize tedana outputs into BIDS format.
     6.  Generate nireports HTML report.
     """
+    from tedanaprep.interfaces.bids import BIDSDataGrabber
+    from tedanaprep.interfaces.misc import RemoveNonSteadyStateVolumes
+    from tedanaprep.interfaces.nilearn import LoadConfounds
+    from tedanaprep.interfaces.tedana import Tedana
     ...
