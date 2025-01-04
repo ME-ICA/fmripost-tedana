@@ -242,7 +242,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'fmripost_phase_doc'
+htmlhelp_basename = 'fmripost_tedana_doc'
 
 # -- Options for LaTeX output ---------------------------------------------
 

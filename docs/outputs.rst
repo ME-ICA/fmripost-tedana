@@ -69,57 +69,6 @@ The `BIDS Derivatives`_ specification describes the naming and metadata conventi
 Functional derivatives
 ~~~~~~~~~~~~~~~~~~~~~~
 
-**Unwrapped phase data**.
-Unwrapped phase data are stored in the ``func/`` subfolder,
-if the ``--unwrap`` flag is used::
-
-  sub-<label>/
-    func/
-      <source_entities>_part-phase_desc-unwrapped_bold.nii.gz
-      <source_entities>_part-phase_desc-unwrapped_bold.json
-
-**Phase regression outputs**.
-Phase regression confounds are stored in the ``func/`` subfolder,
-if ``--regression-method`` is not set to ``none``::
-
-  sub-<label>/
-    func/
-      # The phase denoised BOLD series
-      <source_entities>_part-mag_desc-phaseDenoised_bold.nii.gz
-      <source_entities>_part-mag_desc-phaseDenoised_bold.json
-      # Fitted phase time series from the phase regression
-      # This can be combined with other confounds for denoising
-      <source_entities>_desc-fitted_timeseries.nii.gz
-      <source_entities>_desc-fitted_timeseries.json
-
-**LayNII phase outputs**.
-LayNII phase outputs are stored in the ``func/`` subfolder::
-
-  sub-<label>/
-    func/
-      # If --jump is enabled
-      <source_entities>_part-phase_desc-jump_bold.nii.gz
-      <source_entities>_part-phase_desc-jump_bold.json
-
-      # If --jolt is enabled
-      <source_entities>_part-phase_desc-jolt_bold.nii.gz
-      <source_entities>_part-phase_desc-jolt_bold.json
-
-**Complex-ICA derivatives**.
-Complex-ICA outputs from GIFT are stored in the ``func/`` subfolder,
-if ``--gift-dimensionality`` is not set to ``0``::
-
-  sub-<label>/
-    func/
-      <source_entities>_part-mag_desc-gift_mixing.tsv
-      <source_entities>_part-mag_desc-gift_mixing.json
-      <source_entities>_part-phase_desc-gift_mixing.tsv
-      <source_entities>_part-phase_desc-gift_mixing.json
-      <source_entities>_part-mag_desc-gift_components.nii.gz
-      <source_entities>_part-mag_desc-gift_components.json
-      <source_entities>_part-phase_desc-gift_components.nii.gz
-      <source_entities>_part-phase_desc-gift_components.json
-
 **Extracted confounding time series**.
 For each :abbr:`BOLD (blood-oxygen level dependent)` run processed with *fMRIPost-tedana*,
 an accompanying *confounds* file will be generated.
