@@ -20,7 +20,7 @@
 #
 #     https://www.nipreps.org/community/licensing/
 #
-"""fMRIPost-AROMA workflows to run ICA-AROMA."""
+"""fMRIPost-AROMA workflows to run ME-ICA."""
 
 from nipype.interfaces import utility as niu
 from nipype.pipeline import engine as pe
@@ -38,17 +38,17 @@ def init_tedana_wf(
     mem_gb: dict,
     susan_fwhm: float = 6.0,
 ):
-    """Build a workflow that runs `ICA-AROMA`_.
+    """Build a workflow that runs `ME-ICA`_.
 
-    This workflow wraps `ICA-AROMA`_ to identify and remove motion-related
+    This workflow wraps `ME-ICA`_ to identify and remove motion-related
     independent components from a BOLD time series.
 
     The following steps are performed:
 
     #. Remove non-steady state volumes from the bold series.
     #. Smooth data using FSL `susan`, with a kernel width FWHM=6.0mm.
-    #. Run FSL `melodic` outside of ICA-AROMA to generate the report
-    #. Run ICA-AROMA
+    #. Run FSL `melodic` outside of ME-ICA to generate the report
+    #. Run ME-ICA
     #. Aggregate components and classifications to TSVs
 
     There is a current discussion on whether other confounds should be extracted
@@ -56,7 +56,7 @@ def init_tedana_wf(
     <http://nbviewer.jupyter.org/github/nipreps/fmriprep-notebooks/blob/
     922e436429b879271fa13e76767a6e73443e74d9/issue-817_aroma_confounds.ipynb>`__.
 
-    .. _ICA-AROMA: https://github.com/maartenmennes/ICA-AROMA
+    .. _ME-ICA: https://github.com/maartenmennes/ME-ICA
 
     Workflow Graph
         .. workflow::
@@ -100,9 +100,9 @@ def init_tedana_wf(
     aroma_features
         TSV of feature values used to classify components in ``mixing``.
     features_metadata
-        Dictionary describing the ICA-AROMA run
+        Dictionary describing the ME-ICA run
     aroma_confounds
-        TSV of confounds identified as noise by ICA-AROMA
+        TSV of confounds identified as noise by ME-ICA
     """
 
     from nipype.interfaces import fsl
@@ -116,7 +116,7 @@ def init_tedana_wf(
     workflow = Workflow(name=_get_wf_name(bold_file, 'aroma'))
     workflow.__postdesc__ = f"""\
 Automatic removal of motion artifacts using independent component analysis
-[ICA-AROMA, @ica_aroma] was performed on the *preprocessed BOLD on MNI152NLin6Asym space*
+[ME-ICA, @ica_aroma] was performed on the *preprocessed BOLD on MNI152NLin6Asym space*
 time-series after removal of non-steady state volumes and spatial smoothing
 with a nonlinear filter that preserves underlying structure [SUSAN, @susan],
 using a FWHM of {susan_fwhm} mm.
@@ -228,7 +228,7 @@ in the corresponding confounds file.
     )
     workflow.connect([(melodic, select_melodic_files, [('out_dir', 'melodic_dir')])])
 
-    # Run the ICA-AROMA classifier
+    # Run the ME-ICA classifier
     ica_aroma = pe.Node(
         AROMAClassifier(TR=metadata['RepetitionTime']),
         name='ica_aroma',
