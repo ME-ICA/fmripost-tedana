@@ -36,6 +36,7 @@ def _build_parser(**kwargs):
     from pathlib import Path
 
     from packaging.version import Version
+    from tedana.workflows.parser_utils import check_tedpca_value
 
     from fmripost_tedana.cli.version import check_latest, is_flagged
 
