@@ -117,7 +117,7 @@ def init_single_subject_wf(subject_id: str):
         -   BOLD file in native space.
         -   Two main possibilities:
             1.  bids_dir is a raw BIDS dataset and preprocessing derivatives
-                are provided through ``--derivatives``.
+                are provided through ``--datasets``.
                 In this scenario, we only need minimal derivatives.
             2.  bids_dir is a derivatives dataset and we need to collect compliant
                 derivatives to get the data into the right space.
@@ -176,7 +176,7 @@ It is released under the [CC0]\
     entities = config.execution.bids_filters or {}
     entities['subject'] = subject_id
 
-    if config.execution.derivatives:
+    if config.execution.datasets:
         # Raw dataset + derivatives dataset
         config.loggers.workflow.info('Raw+derivatives workflow mode enabled')
         subject_data = collect_derivatives(
@@ -309,7 +309,7 @@ def init_single_run_wf(bold_file):
     entities = {**entities, **extract_entities(bold_file)}
 
     functional_cache = defaultdict(list, {})
-    if config.execution.derivatives:
+    if config.execution.datasets:
         # Collect native-space derivatives and transforms
         functional_cache = collect_derivatives(
             raw_dataset=config.execution.layout,
@@ -319,7 +319,7 @@ def init_single_run_wf(bold_file):
             allow_multiple=False,
             spaces=None,
         )
-        for deriv_dir in config.execution.derivatives.values():
+        for deriv_dir in config.execution.datasets.values():
             functional_cache = update_dict(
                 functional_cache,
                 collect_derivatives(

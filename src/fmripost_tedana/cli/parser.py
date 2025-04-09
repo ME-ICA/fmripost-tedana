@@ -170,7 +170,7 @@ def _build_parser(**kwargs):
     )
     g_bids.add_argument(
         "-d",
-        "--derivatives",
+        "--datasets",
         action="store",
         metavar="PATH",
         type=Path,
@@ -255,13 +255,42 @@ def _build_parser(**kwargs):
     )
 
     g_conf = parser.add_argument_group("Workflow configuration")
+    g_t2star = parser.add_mutually_exclusive_group()
+    g_t2star.add_argument(
+        "--average-t2star",
+        required=False,
+        action="store_true",
+        default=False,
+        help="Average T2* maps across runs before applying the tedana workflow",
+    )
+    g_t2star.add_argument(
+        "--concatenate-t2star",
+        required=False,
+        action="store_true",
+        default=False,
+        help="Concatenate runs before estimating T2* maps",
+    )
+    g_conf.add_argument(
+        "--force",
+        required=False,
+        action="store",
+        nargs="+",
+        default=[],
+        choices=["t2star", "fmap-jacobian"],
+        help=(
+            "Force selected aspects of the input dataset to disable corresponding "
+            "parts of the workflow (a space delimited list). "
+            "t2star: re-estimate T2* maps from the data. "
+            "fmap-jacobian: apply Jacobian scaling during distortion correction."
+        ),
+    )
     g_conf.add_argument(
         "--ignore",
         required=False,
         action="store",
         nargs="+",
         default=[],
-        choices=["fieldmaps", "slicetiming", "sbref", "t2w", "flair"],
+        choices=["fieldmaps", "slicetiming", "sbref", "t2w", "flair", "fmap-jacobian"],
         help=(
             "Ignore selected aspects of the input dataset to disable corresponding "
             "parts of the workflow (a space delimited list)"
