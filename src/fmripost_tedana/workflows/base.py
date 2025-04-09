@@ -114,23 +114,26 @@ def init_single_subject_wf(subject_id: str):
     -----
     1.  Load fMRIPost-tedana config file.
     2.  Collect fMRIPrep derivatives.
-        -   BOLD file in native space.
+        -   Echo-wise BOLD files in native space.
         -   Two main possibilities:
             1.  bids_dir is a raw BIDS dataset and preprocessing derivatives
                 are provided through ``--datasets``.
                 In this scenario, we only need minimal derivatives.
             2.  bids_dir is a derivatives dataset and we need to collect compliant
                 derivatives to get the data into the right space.
-    3.  Loop over runs.
-    4.  Collect each run's associated files.
-        -   Transform(s) to MNI152NLin6Asym
-        -   Confounds file
-        -   ICA-tedana uses its own standard-space edge, CSF, and brain masks,
-            so we don't need to worry about those.
-    5.  Use ``resampler`` to warp BOLD to MNI152NLin6Asym-2mm.
-    6.  Convert motion parameters from confounds file to FSL format.
-    7.  Run ICA-tedana.
-    8.  Warp BOLD to requested output spaces and denoise with ICA-tedana.
+                -   This is possible if the user ran fMRIPrep with ``--me-output-echos``.
+    3.  Optionally estimate T2* across runs.
+        -   Need to warp T2* or BOLD data to same space, depending on approach (avg vs concat).
+    4.  Loop over runs.
+    5.  Collect each run's associated files.
+        -   Transform(s) to MNI152NLin2009cAsym (for component visualization).
+        -   Confounds file (for dummy scans and if external confounds are needed for the
+            decision tree).
+        -   Optional T2* map from fMRIPrep.
+        -   Optional ICA mixing matrix from another dataset (e.g., fMRIPost-AROMA).
+    6.  Run tedana.
+    7.  Denoise available BOLD data in requested spaces with ICA-tedana.
+        -   Do we need to optimally combine with new T2* map and warp within fMRIPost-tedana?
 
     """
     from bids.utils import listify
@@ -370,7 +373,7 @@ def init_single_run_wf(bold_file):
         if not functional_cache['bold_confounds']:
             raise ValueError(
                 'No confounds detected. '
-                'Automatical dummy scan detection cannot be performed. '
+                'Automatic dummy scan detection cannot be performed. '
                 'Please set the `--dummy-scans` flag explicitly.'
             )
         skip_vols = get_nss(functional_cache['bold_confounds'])
