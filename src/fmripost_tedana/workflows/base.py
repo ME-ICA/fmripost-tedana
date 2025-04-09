@@ -276,6 +276,9 @@ Functional data postprocessing
 """
     workflow.__desc__ += func_pre_desc
 
+    # TODO: Estimate T2* (or maybe just collect T2* from the fMRIPrep derivatives?),
+    # warp it to shared space, and average it across runs.
+    # Then pass that along to the single-run workflow.
     for bold_file in subject_data['bold']:
         single_run_wf = init_single_run_wf(bold_file)
         workflow.add_nodes([single_run_wf])
