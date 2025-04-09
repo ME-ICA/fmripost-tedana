@@ -150,7 +150,7 @@ def init_single_subject_wf(subject_id: str):
     workflow = Workflow(name=f'sub_{subject_id}_wf')
     workflow.__desc__ = f"""
 Results included in this manuscript come from postprocessing
-performed using *fMRIPost-tedana* {config.environment.version} (@ica_tedana),
+performed using *fMRIPost-tedana* {config.environment.version} (@tedana),
 which is based on *Nipype* {config.environment.nipype_version}
 (@nipype1; @nipype2; RRID:SCR_002502).
 
