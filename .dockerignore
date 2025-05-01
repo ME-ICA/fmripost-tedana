@@ -8,7 +8,7 @@ build/**/*
 build
 dist/**/*
 dist
-fmripost_template.egg-info/**/*
-fmripost_template.egg-info
+fmripost_tedana.egg-info/**/*
+fmripost_tedana.egg-info
 .eggs/**/*
 .eggs

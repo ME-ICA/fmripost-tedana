@@ -1,13 +1,13 @@
 .PHONY: help docker-build
 .DEFAULT: help
 
-tag="fmripost_template"
+tag="fmripost_tedana"
 
 help:
 	@echo "Premade recipes"
 	@echo
 	@echo "make docker-build [tag=TAG]"
-	@echo "\tBuilds a docker image from source. Defaults to 'fmripost_template' tag."
+	@echo "\tBuilds a docker image from source. Defaults to 'fmripost_tedana' tag."
 
 
 docker-build:
