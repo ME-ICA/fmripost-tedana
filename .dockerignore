@@ -1,0 +1,14 @@
+# python cache
+__pycache__/**/*
+__pycache__
+*.pyc
+
+# python distribution
+build/**/*
+build
+dist/**/*
+dist
+fmripost_tedana.egg-info/**/*
+fmripost_tedana.egg-info
+.eggs/**/*
+.eggs

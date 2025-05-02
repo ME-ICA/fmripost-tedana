@@ -1,7 +1,7 @@
 # emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
 # vi: set ft=python sts=4 ts=4 sw=4 et:
 #
-# Copyright The NiPreps Developers <nipreps@gmail.com>
+# Copyright 2024 The NiPreps Developers <nipreps@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,4 @@
 #
 #     https://www.nipreps.org/community/licensing/
 #
-"""Top-module metadata."""
-
-try:
-    from ._version import __version__
-except ImportError:
-    __version__ = '0+unknown'
+"""Tests for fmripost_tedana.workflows."""
